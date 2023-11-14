@@ -1,5 +1,5 @@
 FROM ubuntu
-MAINTAINANCE richmond <qrrlreyes@tip.edu.ph>
+MAINTAINER richmond <qrrlreyes@tip.edu.ph>
 
 #skip prompts
 ARG DEBIAN-FRONTEND=noninteractive
@@ -8,7 +8,7 @@ ARG DEBIAN-FRONTEND=noninteractive
 RUN apt update; apt dist-upgrade -y
 
 #install packages
-RUN apt install -y apache2 mariaDB
+RUN apt install -y apache2 mariadb-server
 
 #set entrypoint
 ENTRYPOINT apache2ctl -D FOREGROUND

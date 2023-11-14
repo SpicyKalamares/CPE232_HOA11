@@ -7,28 +7,26 @@
     - docker.io
     - docker-compose
 
-- name: Create Docker group
-  group:
-    name: docker
-    state: present
-
-- name: Add current user to the docker group
-  user:
-    name: "{{ ansible_user }}"
-    groups: docker
-    append: yes
-  become: yes
-
-- name: Build Docker image
-  docker_image:
-    name: apache-test:1.3
-    path: /CPE232_HOA11/docker
-  register: result
-  until: result is success
-
-
 - name: Start Docker service
+  become: yes
   service:
     name: docker
     state: started
     enabled: yes
+
+- name: Build Docker image
+  docker_image:
+    name: ubuntu
+    path: /home/richmond/CPE232_HOA11/docker/
+
+- name: Run Docker container
+  docker_container:
+    name: ubuntu
+    image: ubuntu
+    state: started
+    ports:
+      - "8080:80"
+    restart_policy: always
+
+
+
